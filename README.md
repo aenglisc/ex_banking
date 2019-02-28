@@ -1,4 +1,5 @@
 # ExBanking
+[![Build Status](https://travis-ci.org/aenglisc/ex_banking.svg?branch=master)](https://travis-ci.org/aenglisc/ex_banking) [![Coverage Status](https://coveralls.io/repos/github/aenglisc/ex_banking/badge.svg?branch=master)](https://coveralls.io/github/aenglisc/ex_banking?branch=master)
 
 Test task for Elixir developers. Candidate should write a simple banking OTP application in Elixir language.
 
