@@ -8,6 +8,7 @@ Test task for Elixir developers. Candidate should write a simple banking OTP app
   * Not sure about rounding with floats. 1.777 can either be considered a 1.77 or a 1.78, I chose the default behaviour of `Decimal`, which is to round it up.
   * `handle_call`s in the producer can be unified, however the `:send` would still require a separate callback as it returns a different error tuple on overload. Might come up with a more elegant solution later.
   * Binding on a pattern match, such as `{:ok, producer} = ExBanking.User.Producer.start_link(name)` is an antipattern but I left them as is since they seemed safe enough.
+  * Something else that I've probably forgotten?
 
 ## General acceptance criteria
 
