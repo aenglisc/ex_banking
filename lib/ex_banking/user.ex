@@ -3,18 +3,18 @@ defmodule ExBanking.User do
   @type amount :: number
   @type currency :: String.t()
 
+  alias __MODULE__.{Consumer, Producer}
+
   @spec create(user) ::
           :ok
           | {:error, :wrong_arguments}
           | {:error, :user_already_exists}
   def create(user) when is_binary(user) do
-    case :global.whereis_name(user) do
-      :undefined ->
-        ExBanking.User.Consumer.start_link(user)
-        :ok
-
-      _ ->
-        {:error, :user_already_exists}
+    with {:ok, producer} <- Producer.start_link(user),
+         {:ok, _consumer} <- Consumer.start_link(producer) do
+      :ok
+    else
+      _ -> {:error, :user_already_exists}
     end
   end
 
@@ -26,8 +26,7 @@ defmodule ExBanking.User do
           | {:error, :user_does_not_exist}
           | {:error, :too_many_requests_to_user}
   def get_balance(user, currency)
-      when is_binary(user) and
-             is_binary(currency) do
+      when is_binary(user) and is_binary(currency) do
     case :global.whereis_name(user) do
       :undefined ->
         {:error, :user_does_not_exist}

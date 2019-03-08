@@ -15,13 +15,12 @@ defmodule ExBanking.User.Consumer do
   alias __MODULE__.State
   alias ExBanking.Arithmetics
 
-  def start_link(name) do
-    GenStage.start_link(__MODULE__, name)
+  def start_link(producer) do
+    GenStage.start_link(__MODULE__, producer)
   end
 
   @impl GenStage
-  def init(name) do
-    {:ok, producer} = ExBanking.User.Producer.start_link(name)
+  def init(producer) do
     {:consumer, %State{}, subscribe_to: [{producer, max_demand: 1}]}
   end
 
